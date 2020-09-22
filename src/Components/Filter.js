@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import { FilterState } from "./FilterState";
 
@@ -9,9 +10,9 @@ export default class Filter extends Component {
     this.basicStyle = { color: "" };
   }
 
-  onFilterChange = (fs) => {
-    this.props.onFilter(fs);
-  };
+  // onFilterChange = (fs) => {
+  //   this.props.onFilter(fs);
+  // };
 
   // style for filters:
   getStyle = (styleAsked) => {
@@ -25,30 +26,18 @@ export default class Filter extends Component {
   render() {
     return (
       <p className="filter">
-        <span
-          onClick={() => this.onFilterChange(FilterState.ALL)}
-          style={this.getStyle(FilterState.ALL)}
-        >
-          All
-        </span>
-        <span
-          onClick={() => this.onFilterChange(FilterState.ACTIVE)}
-          style={this.getStyle(FilterState.ACTIVE)}
-        >
-          Active
-        </span>
-        <span
-          onClick={() => this.onFilterChange(FilterState.COMPLETED)}
-          style={this.getStyle(FilterState.COMPLETED)}
-        >
-          Completed
-        </span>
-        <span
-          onClick={() => this.onFilterChange(FilterState.NONE)}
-          style={this.getStyle(FilterState.NONE)}
-        >
-          None
-        </span>
+        <Link to="./all">
+          <span style={this.getStyle(FilterState.ALL)}>All</span>
+        </Link>
+
+        <Link to="./active">
+          <span style={this.getStyle(FilterState.ACTIVE)}>Active</span>
+        </Link>
+
+        <Link to="./completed">
+          <span style={this.getStyle(FilterState.COMPLETED)}>Completed</span>
+        </Link>
+        <span style={this.getStyle(FilterState.NONE)}>None</span>
       </p>
     );
   }
