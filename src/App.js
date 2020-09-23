@@ -1,20 +1,18 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import AddNewItem from "./Components/AddNewItem";
-import ToDoItem from "./Components/ToDoItem";
 import Filter from "./Components/Filter";
 import { FilterState } from "./Components/FilterState";
 
 import "./App.css";
+import ToDoList from "./Components/ToDoList";
 
 let idCounter = 15;
 
 export default class App extends Component {
   state = {
     todoitems: [],
-    filter: FilterState.ALL,
   };
 
   //adding new items:
@@ -29,7 +27,7 @@ export default class App extends Component {
   getFilteredForRoute = (filter) => {
     switch (filter) {
       case FilterState.ALL:
-        return this.state.todos;
+        return this.state.todoitems;
       case FilterState.ACTIVE:
         return this.state.todoitems.filter((todo) => todo.completed === false);
       case FilterState.COMPLETED:
@@ -55,7 +53,7 @@ export default class App extends Component {
   completedHandler = (id) => {
     const completedList = [...this.state.todoitems];
     const todo = completedList.find((todo) => todo.id === id);
-    if (todo) {
+    if (todo !== undefined && todo !== null) {
       todo.completed = !todo.completed;
       this.setState({ todoitems: completedList });
     }
@@ -79,32 +77,32 @@ export default class App extends Component {
 
         <Switch>
           <Route path="/all">
-            <ToDoItem
-              todosList={this.getFilteredForRoute(FilterState.ALL)}
+            <ToDoList
+              todoitems={this.getFilteredForRoute(FilterState.ALL)}
               onDelete={this.deleteHandler}
               onCompleted={this.completedHandler}
             />
           </Route>
 
           <Route path="/active">
-            <ToDoItem
-              todosList={this.getFilteredForRoute(FilterState.ACTIVE)}
+            <ToDoList
+              todoitems={this.getFilteredForRoute(FilterState.ACTIVE)}
               onDelete={this.deleteHandler}
               onCompleted={this.completedHandler}
             />
           </Route>
 
           <Route path="/completed">
-            <ToDoItem
-              todosList={this.getFilteredForRoute(FilterState.COMPLETED)}
+            <ToDoList
+              todoitems={this.getFilteredForRoute(FilterState.COMPLETED)}
               onDelete={this.deleteHandler}
               onCompleted={this.completedHandler}
             />
           </Route>
 
           <Route path="/none">
-            <ToDoItem
-              todosList={this.getFilteredForRoute(FilterState.NONE)}
+            <ToDoList
+              todoitems={this.getFilteredForRoute(FilterState.NONE)}
               onDelete={this.deleteHandler}
               onCompleted={this.completedHandler}
             />

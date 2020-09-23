@@ -10,10 +10,6 @@ export default class Filter extends Component {
     this.basicStyle = { color: "" };
   }
 
-  // onFilterChange = (fs) => {
-  //   this.props.onFilter(fs);
-  // };
-
   // style for filters:
   getStyle = (styleAsked) => {
     if (styleAsked === this.props.currentFilter) {
@@ -29,15 +25,15 @@ export default class Filter extends Component {
         <Link to="./all">
           <span style={this.getStyle(FilterState.ALL)}>All</span>
         </Link>
-
         <Link to="./active">
           <span style={this.getStyle(FilterState.ACTIVE)}>Active</span>
         </Link>
-
         <Link to="./completed">
           <span style={this.getStyle(FilterState.COMPLETED)}>Completed</span>
         </Link>
-        <span style={this.getStyle(FilterState.NONE)}>None</span>
+        <Link to="./none">
+          <span style={this.getStyle(FilterState.NONE)}>None</span>
+        </Link>
       </p>
     );
   }
